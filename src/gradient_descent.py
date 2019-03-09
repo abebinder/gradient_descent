@@ -9,7 +9,7 @@ class GradientDescent():
         for i in range(n):
             print(i)
             g1 = g(x)
-            z = optimize.approx_fprime(x, f, self.eps)
+            z = optimize.approx_fprime(x, g, self.eps)
             z0 = np.linalg.norm(z)
 
             if (z0 == 0):
@@ -38,17 +38,3 @@ class GradientDescent():
             x = x - delta * z
             if abs(geval - g1) < tol:
                 return x, geval
-
-
-def ff(x, y, z):
-    return 1/1000 * ((x-2)**2 + (y-5)**2 + (z+3)**2)
-
-
-def f(x):
-    return ff(*x)
-
-g = GradientDescent()
-
-something = g.gradient_descent(f,[1000, 1000, 1000],.00001,5000)
-
-print(something)
