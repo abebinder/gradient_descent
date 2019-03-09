@@ -9,4 +9,9 @@ def f(x):
 eps = np.sqrt(np.finfo(float).eps)
 
 #find gradient vector at x0=1, x1=1 for function f.
-print(optimize.approx_fprime([1,1],f,eps))
+a= optimize.approx_fprime([1,1],f,eps)
+print(a)
+
+
+# find 2 norm of that vector
+print(np.linalg.norm(a))
