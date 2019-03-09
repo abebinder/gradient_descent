@@ -32,9 +32,10 @@ z = np.sin(-x*y)
 plt.ion()
 fig = plt.figure()
 
-for i in range(80,len(z)):
+for i in range(80,len(z),10):
     plt.clf()  # Clear the figure
     ax = fig.gca(projection='3d')
     ax.plot_trisurf(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
-    plt.pause(.005)
+    plt.pause(.0005)
+plt.pause(500)
 
