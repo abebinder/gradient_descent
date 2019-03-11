@@ -58,16 +58,13 @@ for i in range(80,len(z),10):
 
 
 
-xguess=[1,1]
+xguess=[20,20]
 for i in range(0,10000):
-    plt.clf()  # Clear the figure
     ax = fig.gca(projection='3d')
-
-    ax = fig.gca(projection='3d')
-
     newxguess = grad.gradient_single_step(f,xguess,.005,100)[0]
-    ax.plot_trisurf(x, y, z, linewidth=0.2, antialiased=True)
-    plt.pause(.0005)
+    ax.plot([xguess[0]]+ [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)] )
+    xguess = newxguess
+    plt.pause(5)
 
 
 
