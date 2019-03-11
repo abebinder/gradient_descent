@@ -38,6 +38,8 @@ rlist = zlist**2 + 1
 xlist = rlist * np.sin(theta)
 ylist = rlist * np.cos(theta)
 
+print(len(xlist))
+
 for i in range(0,len(z),10):
     plt.clf()  # Clear the figure
     ax = fig.gca(projection='3d')

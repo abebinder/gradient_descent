@@ -34,20 +34,15 @@ y = np.append(0, (radii*np.sin(angles)).flatten())* (xguess[1] *1.5)
 
 # Compute z to make the pringle surface.
 z = x**2+y**2
-
 print(x)
 print(y)
 
 print(z)
+print(len(x))
 
 plt.ion()
 fig = plt.figure()
 
-theta = np.linspace(-4 * np.pi, 4 * np.pi, 1000)
-zlist = np.linspace(-2, 2, 1000)
-rlist = zlist**2 + 1
-xlist = rlist * np.sin(theta)
-ylist = rlist * np.cos(theta)
 
 
 
@@ -57,7 +52,7 @@ def f(x):
 
 
 
-for i in range(80,len(z),10):
+for i in range(10,len(z),9):
     plt.clf()  # Clear the figure
     ax = fig.gca(projection='3d')
     ax.plot_trisurf(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)

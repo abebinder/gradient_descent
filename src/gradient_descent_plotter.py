@@ -7,7 +7,7 @@ class GradientDescentPlotter():
     grad = GradientDescent()
 
 
-    def get_domain(self,f,xguess):
+    def get_domain(self, f, domain_bounds):
         n_radii = 8
         n_angles = 36
 
@@ -23,8 +23,8 @@ class GradientDescentPlotter():
         # (0, 0) is manually added at this stage,  so there will be no duplicate
         # points in the (x, y) plane.
 
-        xlist = np.append(0, (radii * np.cos(angles)).flatten()) * (xguess[0] * 1.5)
-        ylist = np.append(0, (radii * np.sin(angles)).flatten()) * (xguess[1] * 1.5)
+        xlist = np.append(0, (radii * np.cos(angles)).flatten()) * domain_bounds[0]
+        ylist = np.append(0, (radii * np.sin(angles)).flatten()) * domain_bounds[1]
 
         x = [xlist,ylist]
 
@@ -32,9 +32,9 @@ class GradientDescentPlotter():
         z = f(x)
         return xlist,ylist,z
 
-    def plotGradientDescent(self, f,xguess,n,tol):
+    def plotGradientDescent(self, f, domain_bounds, xguess,n,tol):
 
-        x,y,z = self.get_domain(f,xguess)
+        x,y,z = self.get_domain(f,domain_bounds)
 
         print(x,y,z)
 
