@@ -9,7 +9,7 @@ class GradientDescentPlotter():
 
     def get_domain(self, f, domain_bounds):
         n_radii = 8
-        n_angles = 36
+        n_angles = 50
 
 
         # Make radii and angles spaces (radius r=0 omitted to eliminate duplication).
@@ -32,19 +32,44 @@ class GradientDescentPlotter():
         z = f(x)
         return xlist,ylist,z
 
+
+    def getsquareDomain(self,f,bounds,n):
+        xlist=[]
+        ylist =[]
+        xdiff = bounds[0][1] - bounds[0][0]
+        ydiff = bounds[1][1] - bounds[1][0]
+        for i in range(n):
+            xlist.append(bounds[0][0]+ xdiff* (i/n))
+        for i in range(n):
+            ylist.append(bounds[1][0] + ydiff * (i / n))
+        # Compute z to make the pringle surface.
+        xlist = np.array(xlist)
+        ylist = np.array(ylist)
+
+        X,Y = np.meshgrid(xlist,ylist)
+
+        Z = f([X, Y])
+
+        return X, Y, Z
+
+
     def plotGradientDescent(self, f, domain_bounds, xguess,n,tol):
 
-        x,y,z = self.get_domain(f,domain_bounds)
+        #x,y,z = self.get_domain(f,domain_bounds)
+        x,y,z = self.getsquareDomain(f,domain_bounds,100)
 
         print(x,y,z)
+        print(len(x))
+        print(len(y))
+        print(len(z))
 
         plt.ion()
         fig = plt.figure()
 
-        for i in range(10, len(z), 9):
+        for i in range(1, len(z), 3):
             plt.clf()  # Clear the figure
             ax = fig.gca(projection='3d')
-            ax.plot_trisurf(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
+            ax.plot_surface(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
             plt.pause(.0005)
 
 
@@ -54,4 +79,6 @@ class GradientDescentPlotter():
             ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)])
             xguess = newxguess
             plt.pause(.2)
+            print(xguess)
+            print(f(xguess))
         plt.pause(500)

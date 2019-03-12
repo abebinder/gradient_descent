@@ -45,6 +45,7 @@ class GradientDescent():
 
 
     def gradient_single_step(self,g,x,tol,n):
+        stepsize=.9
         g1 = g(x)
         z = optimize.approx_fprime(x, g, self.eps)
         z0 = np.linalg.norm(z)
@@ -53,7 +54,7 @@ class GradientDescent():
             return x, g1,
         z = z / z0
         del1 = 0
-        del3 = 1
+        del3 = stepsize
         g3 = g(x - del3 * z)
         while (g3 >= g1):
             del3 = del3 / 2
