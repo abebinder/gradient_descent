@@ -91,7 +91,7 @@ class GradientDescentPlotter():
         for i in range(0, 6):
             ax = fig.gca(projection='3d')
             newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
-            ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)])
+            ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
             xguess = newxguess
             plt.draw()
             plt.show(block=False)
