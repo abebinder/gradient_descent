@@ -1,7 +1,13 @@
+import time
+
 from mpl_toolkits.mplot3d import Axes3D
 from gradient_descent import GradientDescent
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
+
+print(matplotlib.__version__)
+
 class GradientDescentPlotter():
 
     grad = GradientDescent()
@@ -53,10 +59,9 @@ class GradientDescentPlotter():
         return X, Y, Z
 
 
-    def plotGradientDescent(self, f, domain_bounds, xguess,n,tol):
+    def plotGradientDescent(self, f, domain_bounds, xguess,n,tol, surface_sample=100):
 
-        #x,y,z = self.get_domain(f,domain_bounds)
-        x,y,z = self.getsquareDomain(f,domain_bounds,100)
+        x,y,z = self.getsquareDomain(f,domain_bounds,surface_sample)
 
         print(x,y,z)
         print(len(x))
@@ -66,14 +71,25 @@ class GradientDescentPlotter():
         plt.ion()
         fig = plt.figure()
 
-        for i in range(1, len(z), 3):
+        increment = int (len(z)/20)
+
+        for i in range(1, len(z), increment):
             plt.clf()  # Clear the figure
             ax = fig.gca(projection='3d')
             ax.plot_surface(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
             plt.pause(.0005)
 
 
-        for i in range(0, n):
+        plt.ioff()
+        plt.show(block=False)
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
+        # input("Press Enter to continue...")
+        # print("lets go!")
+        plt.ion()
+
+        for i in range(0, 6):
             ax = fig.gca(projection='3d')
             newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
             ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)])
@@ -81,4 +97,5 @@ class GradientDescentPlotter():
             plt.pause(.2)
             print(xguess)
             print(f(xguess))
-        plt.pause(500)
+        plt.ioff()
+        plt.show()
