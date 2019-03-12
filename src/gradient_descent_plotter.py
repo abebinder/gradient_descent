@@ -68,10 +68,17 @@ class GradientDescentPlotter():
         print(len(y))
         print(len(z))
 
-        plt.ion()
         fig = plt.figure()
+        ax = fig.gca(projection='3d')
 
         increment = int (len(z)/20)
+
+        plt.draw()
+        plt.show(block=False)
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
+        plt.ion()
 
         for i in range(1, len(z), increment):
             plt.clf()  # Clear the figure
