@@ -106,6 +106,7 @@ class GradientDescentPlotter():
         print(xguess[0])
         print(xguess[1])
         ax.plot([xguess[0]], [xguess[1]], [f(xguess)], marker='o', markersize=5, color="red")
+        plt.title('x=%f, y=%f, z=%f' % (xguess[0], xguess[1], f(xguess)), y=1.08)
         plt.draw()
         plt.show(block=False)
 
@@ -188,6 +189,7 @@ class GradientDescentPlotter():
         # input("Press Enter to continue...")
         # print("lets go!")
         plt.plot(xguess[0], f(xguess), marker='o', markersize=5, color="red")
+        plt.title('x=%f, y=%f' % (xguess[0], f(xguess)), y=1.08)
         plt.draw()
         plt.show(block=False)
         keyboardClick = False
