@@ -166,6 +166,12 @@ class GradientDescentPlotter():
             keyboardClick = plt.waitforbuttonpress()
         # input("Press Enter to continue...")
         # print("lets go!")
+        plt.plot(xguess[0], f(xguess), marker='o', markersize=5, color="red")
+        plt.draw()
+        plt.show(block=False)
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
 
         for i in range(0, 6):
             ax = fig.gca()
