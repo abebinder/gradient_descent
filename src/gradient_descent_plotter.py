@@ -86,7 +86,6 @@ class GradientDescentPlotter():
             ax.plot_surface(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
             plt.pause(.0005)
 
-
         plt.ioff()
         plt.show(block=False)
         keyboardClick = False
@@ -98,7 +97,19 @@ class GradientDescentPlotter():
         for i in range(0, 6):
             ax = fig.gca(projection='3d')
             newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
-            ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
+            # ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
+            inneriter = 10
+            for j in range(inneriter+1):
+                plt.ion()
+                betweenx = xguess[0] + (newxguess[0] - xguess[0])* (1/inneriter)*j
+                betweeny = xguess[1] + ( newxguess[1] - xguess[1]) * (1/inneriter)*j
+                print("x=%f"%betweenx)
+                print("y=%f"%betweeny)
+                z= f([betweenx,betweeny])
+                ax.plot([xguess[0]] + [betweenx], [xguess[1]] + [betweeny], [f(xguess)] + [z], 'k')
+                plt.title('x=%f, y=%f, z=%f'%(betweenx,betweeny,z),y=1.08)
+                plt.pause(.001)
+
             xguess = newxguess
             plt.draw()
             plt.show(block=False)
