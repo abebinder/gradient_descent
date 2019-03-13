@@ -120,3 +120,84 @@ class GradientDescentPlotter():
             print(f(xguess))
         plt.ioff()
         plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def plotGradientDescentTwoD(self, f, domain_bounds, xguess,n,tol, surface_sample=100):
+
+        x,y = self.getsquareDomain2D(f,domain_bounds,surface_sample)
+
+        print(len(x))
+        print(len(y))
+
+        fig = plt.figure()
+
+
+        plt.draw()
+        plt.show(block=False)
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
+        plt.ion()
+
+        increment = int (len(y)/20)
+        for i in range(1, len(y)+1, increment):
+            plt.clf()  # Clear the figure
+            ax = fig.gca()
+            ax.plot(x[:i], y[:i])
+            plt.pause(.0005)
+
+        plt.ioff()
+        plt.show(block=False)
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
+        # input("Press Enter to continue...")
+        # print("lets go!")
+
+        for i in range(0, 6):
+            ax = fig.gca()
+            newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
+            # ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
+            inneriter = 10
+            for j in range(inneriter+1):
+                plt.ion()
+                betweenx = xguess[0] + (newxguess[0] - xguess[0])* (1/inneriter)*j
+                y= f([betweenx])
+                ax.plot([xguess[0]] + [betweenx], [f(xguess)] + [y], 'k')
+                plt.title('x=%f, y=%f'%(betweenx,y),y=1.08)
+                plt.pause(.001)
+
+            xguess = newxguess
+            plt.draw()
+            plt.show(block=False)
+            keyboardClick = False
+            while keyboardClick != True:
+                keyboardClick = plt.waitforbuttonpress()
+            print(xguess)
+            print(f(xguess))
+        plt.ioff()
+        plt.show()
+
+    def getsquareDomain2D(self,f,bounds,n):
+        xlist=[]
+        xdiff = bounds[0][1] - bounds[0][0]
+        for i in range(n):
+            xlist.append(bounds[0][0]+ xdiff* (i/n))
+        # Compute z to make the pringle surface.
+        xlist = np.array(xlist)
+
+        y = f([xlist])
+
+        return xlist, y
