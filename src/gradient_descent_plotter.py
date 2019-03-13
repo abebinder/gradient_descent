@@ -175,6 +175,7 @@ class GradientDescentPlotter():
                 plt.ion()
                 betweenx = xguess[0] + (newxguess[0] - xguess[0])* (1/inneriter)*j
                 y= f([betweenx])
+                y= f(xguess) + (f(newxguess) - f(xguess))* (1/inneriter)*j
                 ax.plot([xguess[0]] + [betweenx], [f(xguess)] + [y], 'k')
                 plt.title('x=%f, y=%f'%(betweenx,y),y=1.08)
                 plt.pause(.001)
