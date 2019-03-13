@@ -75,9 +75,12 @@ class GradientDescentPlotter():
 
         plt.draw()
         plt.show(block=False)
+
         keyboardClick = False
         while keyboardClick != True:
             keyboardClick = plt.waitforbuttonpress()
+
+
         plt.ion()
 
         for i in range(1, len(z), increment):
@@ -87,12 +90,30 @@ class GradientDescentPlotter():
             plt.pause(.0005)
 
         plt.ioff()
+
+
         plt.show(block=False)
         keyboardClick = False
         while keyboardClick != True:
             keyboardClick = plt.waitforbuttonpress()
         # input("Press Enter to continue...")
         # print("lets go!")
+
+        # input("Press Enter to continue...")
+        # print("lets go!")
+        ax = fig.gca(projection='3d')
+        print(f(xguess))
+        print(xguess[0])
+        print(xguess[1])
+        ax.plot([xguess[0]], [xguess[1]], [f(xguess)], marker='o', markersize=5, color="red")
+        plt.draw()
+        plt.show(block=False)
+
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
+
+
 
         for i in range(0, 6):
             ax = fig.gca(projection='3d')
