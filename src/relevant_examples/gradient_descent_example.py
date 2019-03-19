@@ -1,4 +1,4 @@
-from gradient_descent import GradientDescent
+from gradient_descent import gradient_descent
 
 
 def ff(x, y, z):
@@ -8,8 +8,7 @@ def ff(x, y, z):
 def f(x):
     return ff(*x)
 
-g = GradientDescent()
 
-something = g.gradient_descent(f,[1000, 1000, 1000],.00001,5000)
+something = gradient_descent(g.eps, f, [1000, 1000, 1000], .00001, 5000)
 
 print(something)

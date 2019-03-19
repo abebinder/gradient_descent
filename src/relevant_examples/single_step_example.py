@@ -9,10 +9,7 @@ Plot a 3D surface with a triangular mesh.
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
-from gradient_descent import GradientDescent
-
-
-grad = GradientDescent()
+from gradient_descent import gradient_single_step
 
 n_radii = 8
 n_angles = 36
@@ -64,7 +61,7 @@ for i in range(10,len(z),9):
 
 for i in range(0,10000):
     ax = fig.gca(projection='3d')
-    newxguess = grad.gradient_single_step(f,xguess,.005,100)[0]
+    newxguess = gradient_single_step(grad.eps, f, xguess, .005, 100)[0]
     ax.plot([xguess[0]]+ [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)] )
     xguess = newxguess
     plt.pause(.2)

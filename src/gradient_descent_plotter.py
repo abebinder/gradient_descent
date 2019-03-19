@@ -1,7 +1,7 @@
 import time
 
 from mpl_toolkits.mplot3d import Axes3D
-from gradient_descent import GradientDescent
+from gradient_descent import gradient_single_step,eps
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
@@ -10,7 +10,6 @@ print(matplotlib.__version__)
 
 class GradientDescentPlotter():
 
-    grad = GradientDescent()
 
 
     def get_domain(self, f, domain_bounds):
@@ -118,7 +117,7 @@ class GradientDescentPlotter():
 
         for i in range(0, 6):
             ax = fig.gca(projection='3d')
-            newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
+            newxguess = gradient_single_step(eps, f, xguess, .005, 100)[0]
             # ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
             inneriter = 10
             for j in range(inneriter+1):
@@ -198,7 +197,7 @@ class GradientDescentPlotter():
 
         for i in range(0, 6):
             ax = fig.gca()
-            newxguess = self.grad.gradient_single_step(f, xguess, .005, 100)[0]
+            newxguess = gradient_single_step(eps, f, xguess, .005, 100)[0]
             # ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
             inneriter = 10
             for j in range(inneriter+1):
