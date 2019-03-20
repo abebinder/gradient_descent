@@ -38,9 +38,7 @@ class GradientDescentPlotter():
         plt.draw()
         plt.show(block=False)
 
-        keyboardClick = False
-        while keyboardClick != True:
-            keyboardClick = plt.waitforbuttonpress()
+        self.waitForKeybordPress()
 
 
         plt.ion()
@@ -48,7 +46,8 @@ class GradientDescentPlotter():
         for i in range(1, len(z), increment):
             plt.clf()  # Clear the figure
             ax = fig.gca(projection='3d')
-            ax.plot_surface(x[:i], y[:i], z[:i], linewidth=0.2, antialiased=True)
+            tuple = x[:i], y[:i], z[:i]
+            ax.plot_surface(*tuple, linewidth=0.2, antialiased=True)
             plt.pause(.0005)
 
         plt.ioff()
@@ -175,11 +174,7 @@ class GradientDescentPlotter():
             xguess = newxguess
             plt.draw()
             plt.show(block=False)
-            keyboardClick = False
-            while keyboardClick != True:
-                keyboardClick = plt.waitforbuttonpress()
-            print(xguess)
-            print(f(xguess))
+            self.waitForKeybordPress()
         plt.ioff()
         plt.show()
 
@@ -194,3 +189,9 @@ class GradientDescentPlotter():
         y = f([xlist])
 
         return xlist, y
+
+
+    def waitForKeybordPress(self):
+        keyboardClick = False
+        while keyboardClick != True:
+            keyboardClick = plt.waitforbuttonpress()
