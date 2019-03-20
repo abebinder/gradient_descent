@@ -179,15 +179,8 @@ class GradientDescentPlotter():
         plt.show()
 
     def getsquareDomain2D(self,f,bounds,n):
-        xlist=[]
-        xdiff = bounds[0][1] - bounds[0][0]
-        for i in range(n):
-            xlist.append(bounds[0][0]+ xdiff* (i/n))
-        # Compute z to make the pringle surface.
-        xlist = np.array(xlist)
-
+        xlist=np.arange(bounds[0][0], bounds[0][1], (bounds[0][1]-bounds[0][0])/n)
         y = f([xlist])
-
         return xlist, y
 
 
