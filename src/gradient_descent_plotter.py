@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
 
-print(matplotlib.__version__)
-
 class GradientDescentPlotter():
 
 
@@ -41,16 +39,8 @@ class GradientDescentPlotter():
         self.waitForKeybordPress()
 
 
-        plt.ion()
-
-        for i in range(1, len(z), increment):
-            plt.clf()  # Clear the figure
-            ax = fig.gca(projection='3d')
-            tuple = x[:i], y[:i], z[:i]
-            ax.plot_surface(*tuple, linewidth=0.2, antialiased=True)
-            plt.pause(.0005)
-
-        plt.ioff()
+        tuple = (x,y,z)
+        self.animatePlotRender(tuple, fig)
 
 
         plt.show(block=False)
@@ -188,3 +178,18 @@ class GradientDescentPlotter():
         keyboardClick = False
         while keyboardClick != True:
             keyboardClick = plt.waitforbuttonpress()
+
+    def animatePlotRender(self,x,fig):
+        increment = int (len(x[0])/20)
+        plt.ion()
+        for i in range(1, len(x[0]), increment):
+            plt.clf()  # Clear the figure
+            ax = fig.gca(projection='3d')
+            newx =[]
+            for e in x:
+                newx.append(e[:i])
+            ax.plot_surface(*newx, linewidth=0.2, antialiased=True)
+            plt.pause(.0005)
+        plt.ioff()
+        plt.show(block=False)
+
