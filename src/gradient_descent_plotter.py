@@ -12,22 +12,12 @@ class GradientDescentPlotter():
 
 
     def getsquareDomain(self,f,bounds,n):
-        xlist=[]
-        ylist =[]
         xdiff = bounds[0][1] - bounds[0][0]
         ydiff = bounds[1][1] - bounds[1][0]
-        for i in range(n):
-            xlist.append(bounds[0][0]+ xdiff* (i/n))
-        for i in range(n):
-            ylist.append(bounds[1][0] + ydiff * (i / n))
-        # Compute z to make the pringle surface.
-        xlist = np.array(xlist)
-        ylist = np.array(ylist)
-
+        xlist = np.arange(bounds[0][0], bounds[0][1], xdiff/n)
+        ylist = np.arange(bounds[1][0], bounds[1][1], ydiff/n)
         X,Y = np.meshgrid(xlist,ylist)
-
         Z = f([X, Y])
-
         return X, Y, Z
 
 
