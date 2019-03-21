@@ -22,17 +22,7 @@ class GradientDescentPlotter():
     def plotGradientDescent(self, f, domain_bounds, xguess,n,tol, surface_sample=100):
 
         x,y,z = self.getsquareDomain(f,domain_bounds,surface_sample)
-
-        print(x,y,z)
-        print(len(x))
-        print(len(y))
-        print(len(z))
-
         fig = plt.figure()
-        ax = fig.gca(projection='3d')
-
-        increment = int (len(z)/20)
-
         plt.draw()
         plt.show(block=False)
 
@@ -43,32 +33,18 @@ class GradientDescentPlotter():
         self.animatePlotRender(tuple, fig)
 
 
-        plt.show(block=False)
-        keyboardClick = False
-        while keyboardClick != True:
-            keyboardClick = plt.waitforbuttonpress()
-        # input("Press Enter to continue...")
-        # print("lets go!")
-
-        # input("Press Enter to continue...")
-        # print("lets go!")
+        self.waitForKeybordPress()
         ax = fig.gca(projection='3d')
-        print(f(xguess))
-        print(xguess[0])
-        print(xguess[1])
         ax.plot([xguess[0]], [xguess[1]], [f(xguess)], marker='o', markersize=5, color="red")
         plt.title('x=%f, y=%f, z=%f' % (xguess[0], xguess[1], f(xguess)), y=1.08)
         plt.draw()
         plt.show(block=False)
 
-        keyboardClick = False
-        while keyboardClick != True:
-            keyboardClick = plt.waitforbuttonpress()
+        self.waitForKeybordPress()
 
 
 
         for i in range(0, 6):
-            ax = fig.gca(projection='3d')
             newxguess = gradient_single_step(eps, f, xguess, .005, 100)[0]
             # ax.plot([xguess[0]] + [newxguess[0]], [xguess[1]] + [newxguess[1]], [f(xguess)] + [f(newxguess)],'k')
             inneriter = 10
