@@ -16,5 +16,5 @@ def mike(x):
 def single(x):
     return x[0]**2
 
-gp.plotGradientDescent(mike,[[2,8],[2,8]],[6,7],100,.001,surface_sample=20)
-#gp.plotGradientDescent(single,[[0,2]],[6],100,.001,surface_sample=20)
+# gp.plotGradientDescent(mike,[[2,8],[2,8]],[6,7],100,.001,surface_sample=20)
+gp.plotGradientDescent(single,[[0,2]],[6],100,.001,surface_sample=20)

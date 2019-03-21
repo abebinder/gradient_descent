@@ -37,7 +37,7 @@ class GradientDescentPlotter():
         for e in xguess:
             wrappedx.append([e])
         ax.plot(*wrappedx, [f(xguess)], marker='o', markersize=5, color="red")
-        plt.title('x=%f, y=%f, z=%f' % (*xguess, f(xguess)), y=1.08)
+        plt.title(str((xguess,f(xguess))), y=1.08)
         plt.draw()
         plt.show(block=False)
 
