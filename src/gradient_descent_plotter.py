@@ -10,13 +10,15 @@ class GradientDescentPlotter():
 
 
     def getsquareDomain(self,f,bounds,n):
-        xdiff = bounds[0][1] - bounds[0][0]
-        ydiff = bounds[1][1] - bounds[1][0]
-        xlist = np.arange(bounds[0][0], bounds[0][1], xdiff/n)
-        ylist = np.arange(bounds[1][0], bounds[1][1], ydiff/n)
-        X,Y = np.meshgrid(xlist,ylist)
-        Z = f([X, Y])
-        return X, Y, Z
+
+        domain=[]
+        for e in bounds:
+            diff = e[1]-e[0]
+            domain.append(np.arange(e[0],e[1],diff/n))
+        if len(bounds)==2:
+            domain[0],domain[1]=np.meshgrid(domain[0],domain[1])
+        domain.append(f(domain))
+        return tuple(domain)
 
 
     def plotGradientDescent(self, f, domain_bounds, xguess,n,tol, surface_sample=100):
