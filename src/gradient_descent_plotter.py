@@ -21,16 +21,12 @@ class GradientDescentPlotter():
 
     def plotGradientDescent(self, f, domain_bounds, xguess,n,tol, surface_sample=100):
 
-        x,y,z = self.getsquareDomain(f,domain_bounds,surface_sample)
+        domain = self.getsquareDomain(f,domain_bounds,surface_sample)
         fig = plt.figure()
         plt.draw()
         plt.show(block=False)
-
         self.waitForKeybordPress()
-
-
-        tuple = (x,y,z)
-        self.animatePlotRender(tuple, fig)
+        self.animatePlotRender(domain, fig)
 
 
         self.waitForKeybordPress()
@@ -161,11 +157,17 @@ class GradientDescentPlotter():
         plt.ion()
         for i in range(1, len(x[0]), increment):
             plt.clf()  # Clear the figure
-            ax = fig.gca(projection='3d')
             newx =[]
-            for e in x:
-                newx.append(e[:i])
-            ax.plot_surface(*newx, linewidth=0.2, antialiased=True)
+            if(len(x)==3):
+                ax = fig.gca(projection='3d')
+                for e in x:
+                    newx.append(e[:i])
+                ax.plot_surface(*newx, linewidth=0.2, antialiased=True)
+            else:
+                ax = fig.gca()
+                for e in x:
+                    newx.append(e[:i])
+                ax.plot(*newx)
             plt.pause(.0005)
         plt.ioff()
         plt.show(block=False)
