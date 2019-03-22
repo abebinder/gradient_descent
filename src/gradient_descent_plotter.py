@@ -32,7 +32,9 @@ class GradientDescentPlotter():
 
 
         self.waitForKeybordPress()
-        ax = fig.gca(projection='3d')
+        ax = fig.gca()
+        if(len(xguess)==2):
+            ax = fig.gca(projection='3d')
         wrappedx = []
         for e in xguess:
             wrappedx.append([e])
@@ -51,14 +53,15 @@ class GradientDescentPlotter():
             inneriter = 10
             for j in range(inneriter+1):
                 plt.ion()
-                betweenx = xguess[0] + (newxguess[0] - xguess[0])* (1/inneriter)*j
-                betweeny = xguess[1] + ( newxguess[1] - xguess[1]) * (1/inneriter)*j
-                print("x=%f"%betweenx)
-                print("y=%f"%betweeny)
-                #z= f([betweenx,betweeny])
+                between = []
+                for k in range(len(xguess)):
+                    indiv = xguess[k] + (newxguess[k] - xguess[k])* (1/inneriter)*j
+                    between.append([xguess[k]] + [indiv])
+
                 z = f(xguess) + (f(newxguess) - f(xguess)) * (1 / inneriter) * j
-                ax.plot([xguess[0]] + [betweenx], [xguess[1]] + [betweeny], [f(xguess)] + [z], 'k')
-                plt.title('x=%f, y=%f, z=%f'%(betweenx,betweeny,z),y=1.08)
+                between.append([f(xguess)] + [z])
+                ax.plot(*between, 'k')
+                # plt.title('x=%f, y=%f, z=%f'%(betweenx,betweeny,z),y=1.08)
                 plt.pause(.001)
 
             xguess = newxguess
